@@ -9,3 +9,19 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model Habit {
+  habitId Int @default(autoincrement()) @id
+  title String
+  habitStatus HabitStatus[]
+  createdAt String
+  updatedAt String
+}
+
+model HabitStatus {
+  habit_status_id Int @default(autoincrement()) @id
+  habit Habit @relation(fields: [habitId], references: [habitId])
+  habitId Int
+  isCompleted Boolean
+  targetedDate String
+}
