@@ -1,6 +1,6 @@
 import { HabitsService } from './habits.service';
-import { Controller, Get } from '@nestjs/common';
-import { Habit } from '@prisma/client';
+import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Habit, Prisma } from '@prisma/client';
 
 @Controller('habits')
 export class HabitsController {
@@ -9,5 +9,11 @@ export class HabitsController {
   @Get()
   findAll(): Promise<Habit[]> {
     return this.habitsService.findAll();
+  }
+
+  @Post()
+  create(@Body() habitData: { title: string }): Promise<Habit> {
+    console.log(habitData);
+    return this.habitsService.create(habitData);
   }
 }
