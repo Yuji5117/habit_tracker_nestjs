@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `Habit` MODIFY `title` MEDIUMTEXT NOT NULL;
