@@ -16,4 +16,10 @@ export class HabitsService {
       data,
     });
   }
+
+  async delete(where: Prisma.HabitWhereUniqueInput): Promise<Habit> {
+    return this.prisma.habit.delete({
+      where,
+    });
+  }
 }
