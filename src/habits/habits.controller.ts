@@ -7,6 +7,7 @@ import {
   Param,
   ParseIntPipe,
   Post,
+  Put,
 } from '@nestjs/common';
 import { Habit } from '@prisma/client';
 
@@ -15,14 +16,25 @@ export class HabitsController {
   constructor(private readonly habitsService: HabitsService) {}
 
   @Get()
-  findAll(): Promise<Habit[]> {
+  async findAll(): Promise<Habit[]> {
     return this.habitsService.findAll();
   }
 
   @Post()
-  create(@Body() habitData: { title: string }): Promise<Habit> {
+  async create(@Body() habitData: { title: string }): Promise<Habit> {
     console.log(habitData);
     return this.habitsService.create(habitData);
+  }
+
+  @Put(':id')
+  async update(
+    @Param('id', ParseIntPipe) habitId: number,
+    @Body('title') title: string,
+  ): Promise<Habit> {
+    return this.habitsService.update({
+      where: { habitId },
+      data: { title },
+    });
   }
 
   @Delete(':id')
