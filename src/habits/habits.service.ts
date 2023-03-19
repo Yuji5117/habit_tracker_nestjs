@@ -7,7 +7,9 @@ export class HabitsService {
   constructor(private readonly prisma: PrismaService) {}
 
   async findAll(): Promise<Habit[]> {
-    return await this.prisma.habit.findMany();
+    return await this.prisma.habit.findMany({
+      include: { habitStatuses: true },
+    });
   }
 
   async create(data: Prisma.HabitCreateInput): Promise<Habit> {

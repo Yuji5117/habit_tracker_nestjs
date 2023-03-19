@@ -13,7 +13,7 @@ datasource db {
 model Habit {
   habitId Int @default(autoincrement()) @id
   title String
-  habitStatus HabitStatus[]
+  habitStatuses HabitStatus[]
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 }
