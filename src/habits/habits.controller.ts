@@ -8,6 +8,7 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { Habit } from '@prisma/client';
 
@@ -16,8 +17,10 @@ export class HabitsController {
   constructor(private readonly habitsService: HabitsService) {}
 
   @Get()
-  async findAll(): Promise<Habit[]> {
-    return this.habitsService.findAll();
+  async findAll(
+    @Query() params: { startDayOfWeek: Date; endDayOfWeek: Date },
+  ): Promise<Habit[]> {
+    return this.habitsService.findAll(params);
   }
 
   @Post()

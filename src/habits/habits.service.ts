@@ -6,9 +6,24 @@ import { Habit, Prisma } from '@prisma/client';
 export class HabitsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async findAll(): Promise<Habit[]> {
+  async findAll(params: {
+    startDayOfWeek: Date;
+    endDayOfWeek: Date;
+  }): Promise<Habit[]> {
+    const { startDayOfWeek, endDayOfWeek } = params;
+
     return await this.prisma.habit.findMany({
       include: { habitStatuses: true },
+      where: {
+        habitStatuses: {
+          every: {
+            targetedDate: {
+              gte: new Date(startDayOfWeek),
+              lte: new Date(endDayOfWeek),
+            },
+          },
+        },
+      },
     });
   }
 
