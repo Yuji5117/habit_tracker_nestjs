@@ -25,7 +25,6 @@ export class HabitsController {
 
   @Post()
   async create(@Body() habitData: { title: string }): Promise<Habit> {
-    console.log(habitData);
     return this.habitsService.create(habitData);
   }
 
@@ -42,7 +41,6 @@ export class HabitsController {
 
   @Delete(':id')
   async delete(@Param('id', ParseIntPipe) habitId: number): Promise<Habit> {
-    console.log(habitId);
     return this.habitsService.delete({ habitId });
   }
 }
