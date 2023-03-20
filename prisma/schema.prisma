@@ -20,7 +20,7 @@ model Habit {
 
 model HabitStatus {
   habit_status_id Int @default(autoincrement()) @id
-  habit Habit @relation(fields: [habitId], references: [habitId])
+  habit Habit @relation(fields: [habitId], references: [habitId], onDelete: Cascade)
   habitId Int
   isCompleted Boolean
   targetedDate String

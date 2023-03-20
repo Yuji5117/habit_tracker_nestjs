@@ -1,0 +1,9 @@
+-- DropForeignKey
+ALTER TABLE `HabitStatus` DROP FOREIGN KEY `HabitStatus_habitId_fkey`;
+
+-- AlterTable
+ALTER TABLE `Habit` MODIFY `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    MODIFY `updatedAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3);
+
+-- AddForeignKey
+ALTER TABLE `HabitStatus` ADD CONSTRAINT `HabitStatus_habitId_fkey` FOREIGN KEY (`habitId`) REFERENCES `Habit`(`habitId`) ON DELETE CASCADE ON UPDATE CASCADE;
