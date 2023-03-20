@@ -25,42 +25,42 @@ async function main() {
       {
         habitId: 1,
         isCompleted: true,
-        targetedDate: '2023-03-15',
+        targetedDate: new Date('2023-03-15'),
       },
       {
         habitId: 1,
         isCompleted: true,
-        targetedDate: '2023-03-16',
+        targetedDate: new Date('2023-03-16'),
       },
       {
         habitId: 1,
         isCompleted: true,
-        targetedDate: '2023-03-17',
+        targetedDate: new Date('2023-03-17'),
       },
       {
         habitId: 2,
         isCompleted: true,
-        targetedDate: '2023-03-15',
+        targetedDate: new Date('2023-03-15'),
       },
       {
         habitId: 2,
         isCompleted: false,
-        targetedDate: '2023-03-16',
+        targetedDate: new Date('2023-03-16'),
       },
       {
         habitId: 2,
         isCompleted: true,
-        targetedDate: '2023-03-17',
+        targetedDate: new Date('2023-03-17'),
       },
       {
         habitId: 3,
         isCompleted: true,
-        targetedDate: '2023-03-10',
+        targetedDate: new Date('2023-03-10'),
       },
       {
         habitId: 4,
         isCompleted: true,
-        targetedDate: '2023-03-25',
+        targetedDate: new Date('2023-03-25'),
       },
     ],
   });

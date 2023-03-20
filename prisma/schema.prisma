@@ -23,5 +23,5 @@ model HabitStatus {
   habit Habit @relation(fields: [habitId], references: [habitId], onDelete: Cascade)
   habitId Int
   isCompleted Boolean
-  targetedDate String
+  targetedDate DateTime
 }
