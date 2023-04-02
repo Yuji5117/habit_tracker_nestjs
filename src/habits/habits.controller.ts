@@ -11,6 +11,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { Habit } from '@prisma/client';
+import { HabitResponse } from './habits.models';
 
 @Controller('habits')
 export class HabitsController {
@@ -19,7 +20,7 @@ export class HabitsController {
   @Get()
   async findAll(
     @Query() params: { startDayOfWeek: Date; endDayOfWeek: Date },
-  ): Promise<Habit[]> {
+  ): Promise<HabitResponse[]> {
     return this.habitsService.findAll(params);
   }
 
