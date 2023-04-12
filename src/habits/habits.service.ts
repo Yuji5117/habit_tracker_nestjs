@@ -3,6 +3,8 @@ import { Injectable } from '@nestjs/common';
 import { Prisma, Habit, HabitStatus } from '@prisma/client';
 import { HabitResponse, HabitStatusResponse } from './habits.models';
 
+const days = [0, 1, 2, 3, 4, 5, 6];
+
 @Injectable()
 export class HabitsService {
   constructor(private readonly prisma: PrismaService) {}
@@ -37,8 +39,6 @@ export class HabitsService {
         ],
       });
 
-    const days = [0, 1, 2, 3, 4, 5, 6];
-
     const habitsResponse: HabitResponse[] = habits.map((habit: Habit) => {
       const targetedHabitStatuses: HabitStatus[] = habitStatusesFromDB.filter(
         (status) => status.habitId === habit.habitId,
@@ -59,19 +59,17 @@ export class HabitsService {
             },
           );
 
-          if (hasHabitStatus) {
-            return hasHabitStatus;
-          } else {
-            return {
-              habitId: habit.habitId,
-              isCompleted: false,
-              targetedDate: new Date(
-                new Date(startDayOfWeek).setDate(
-                  new Date(startDayOfWeek).getDate() + day,
-                ),
+          if (hasHabitStatus) return hasHabitStatus;
+
+          return {
+            habitId: habit.habitId,
+            isCompleted: false,
+            targetedDate: new Date(
+              new Date(startDayOfWeek).setDate(
+                new Date(startDayOfWeek).getDate() + day,
               ),
-            };
-          }
+            ),
+          };
         },
       );
 
@@ -80,10 +78,26 @@ export class HabitsService {
     return habitsResponse;
   }
 
-  async create(data: Prisma.HabitCreateInput): Promise<Habit> {
-    return this.prisma.habit.create({
-      data,
+  async create(data: any): Promise<HabitResponse> {
+    const responese = await this.prisma.habit.create({
+      data: {
+        title: data.title,
+      },
     });
+
+    const initialHabitStatuses = days.map((day) => {
+      return {
+        habitId: responese.habitId,
+        isCompleted: false,
+        targetedDate: new Date(
+          new Date(data.startDayOfWeek).setDate(
+            new Date(data.startDayOfWeek).getDate() + day,
+          ),
+        ),
+      };
+    });
+
+    return { ...responese, habitStatuses: initialHabitStatuses };
   }
 
   async update(params: {

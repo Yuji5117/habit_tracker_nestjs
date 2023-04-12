@@ -25,7 +25,9 @@ export class HabitsController {
   }
 
   @Post()
-  async create(@Body() habitData: { title: string }): Promise<Habit> {
+  async create(
+    @Body() habitData: { title: string; startDayOfWeek: Date },
+  ): Promise<Habit> {
     return this.habitsService.create(habitData);
   }
 
