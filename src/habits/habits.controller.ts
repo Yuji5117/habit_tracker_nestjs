@@ -45,13 +45,24 @@ export class HabitsController {
   @Post(':id/statuses')
   async createStatus(
     @Param('id', ParseIntPipe) habitId: number,
-    @Body('isCompleted') isCompleted: string,
+    @Body('isCompleted') isCompleted: boolean,
     @Body('targetedDate') targetedDate: string,
   ): Promise<HabitStatusResponse> {
     return await this.habitsService.createStatus({
       habitId,
       isCompleted,
       targetedDate,
+    });
+  }
+
+  @Put(':id/statuses/:statusId')
+  async updateStatus(
+    @Param('statusId', ParseIntPipe) statusId: number,
+    @Body('isCompleted') isCompleted: boolean,
+  ): Promise<HabitStatusResponse> {
+    return await this.habitsService.updateStatus({
+      statusId,
+      isCompleted,
     });
   }
 

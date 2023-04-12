@@ -126,6 +126,17 @@ export class HabitsService {
     return responese;
   }
 
+  async updateStatus({ statusId, isCompleted }) {
+    return this.prisma.habitStatus.update({
+      where: {
+        habitStatusId: statusId,
+      },
+      data: {
+        isCompleted,
+      },
+    });
+  }
+
   async delete(where: Prisma.HabitWhereUniqueInput): Promise<Habit> {
     return this.prisma.habit.delete({
       where,
