@@ -118,6 +118,14 @@ export class HabitsService {
       });
   }
 
+  async createStatus(data: any) {
+    const responese = await this.prisma.habitStatus.create({
+      data,
+    });
+
+    return responese;
+  }
+
   async delete(where: Prisma.HabitWhereUniqueInput): Promise<Habit> {
     return this.prisma.habit.delete({
       where,

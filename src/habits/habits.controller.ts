@@ -11,7 +11,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { Habit } from '@prisma/client';
-import { HabitResponse } from './habits.models';
+import { HabitResponse, HabitStatusResponse } from './habits.models';
 
 @Controller('habits')
 export class HabitsController {
@@ -39,6 +39,19 @@ export class HabitsController {
     return this.habitsService.update({
       where: { habitId },
       data: { title },
+    });
+  }
+
+  @Post(':id/status')
+  async createStatus(
+    @Param('id', ParseIntPipe) habitId: number,
+    @Body('isCompleted') isCompleted: string,
+    @Body('targetedDate') targetedDate: string,
+  ): Promise<HabitStatusResponse> {
+    return await this.habitsService.createStatus({
+      habitId,
+      isCompleted,
+      targetedDate,
     });
   }
 
