@@ -42,7 +42,7 @@ export class HabitsController {
     });
   }
 
-  @Post(':id/status')
+  @Post(':id/statuses')
   async createStatus(
     @Param('id', ParseIntPipe) habitId: number,
     @Body('isCompleted') isCompleted: string,
